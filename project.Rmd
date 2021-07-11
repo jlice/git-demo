@@ -1,0 +1,14 @@
+---
+title: "project2"
+author: "Miao"
+date: "2021/7/11"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    number_sections: yes
+  html_document:
+    df_print: paged
+  word_document: default
+fig_caption: yes
+---
+
