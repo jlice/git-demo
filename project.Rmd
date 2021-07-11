@@ -67,3 +67,38 @@ objective objective
 # variables
 
 this is `variable` part!
+
+
+
+```{r pie, echo = FALSE, eval = TRUE,fig.align = "center", fig.cap = "\\label{fig: piegenre} genre pie chat",out.heighth='75%',out.width='75%',fig.pos = 'H'}
+# Barplot
+mytable <- xtabs(~genre+scorename,data=dat)
+table <- prop.table(mytable)
+table <- data.frame(table)
+#$labelPosition<-table$Freq
+#table$label<-paste0(table$category,"\n value: ",table$Freq*100,"%")
+
+ggplot(table, aes(x=scorename, fill=genre))+
+  geom_bar()+
+  coord_polar("y")+
+  labs(x = '', y = '', title = '')+
+  theme(axis.text = element_blank()) + 
+  theme(axis.ticks = element_blank())
+  #geom_label(x=3.5,aes(y=labelPosition,label=label),size=4)+
+```
+
+```{r boxplot1, echo = FALSE, eval = TRUE,fig.align = "center", fig.cap = "\\label{fig:boxplotyear} Year boxplot",out.heighth='75%',out.width='75%',fig.pos = 'H'}
+#boxplot of year
+boxplot1 <- ggplot(dat)+geom_boxplot(aes(x=scorename, y=year, fill= genre))+
+  guides(fill = FALSE) +
+  theme_wsj() +
+  scale_fill_gdocs()+
+  guides(fill=guide_legend())+ 
+  theme(plot.title = element_text(size = 10,hjust = 0.5, face = "bold"),
+        text = element_text(size = 10,face = "bold",hjust = 0.5),
+        axis.title.y = element_text(face = "bold",hjust = 0.5),
+        axis.text.x = element_text(size =10,face ="bold"))+
+ labs(x="Score", y="Year")
+boxplot1
+```
+
