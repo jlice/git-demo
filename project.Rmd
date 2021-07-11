@@ -137,5 +137,19 @@ histogram2 <- ggplot(dat, aes(log(length),fill=genre))+geom_histogram()+
 histogram2
 ```
 
+```{r histogram3, echo = FALSE, eval = TRUE,fig.align = "center", fig.cap = "\\label{fig:histogramVotes} Votes histogram",out.heighth='75%',out.width='75%',fig.pos = 'H'}
+histogram3 <- ggplot(dat, aes(log(votes),fill=genre))+geom_histogram()+
+  guides(fill = FALSE) +
+  theme_economist() +
+  scale_fill_gdocs()+
+  guides(fill=guide_legend())+ 
+  theme(plot.title = element_text(size = 10,hjust = 0.5, face = "bold"),
+        text = element_text(size = 10,face = "bold",hjust = 0.5),
+        axis.title.y = element_text(face = "bold",hjust = 0.5),
+        axis.text.x = element_text(size =10,face ="bold"))
+histogram3
+```
+
+
 
 
