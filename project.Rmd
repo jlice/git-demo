@@ -67,3 +67,75 @@ objective objective
 # variables
 
 this is `variable` part!
+
+# Exploratory Data Analysis {#sec:EDA}
+```{r table, echo = FALSE}
+#The table of year
+dat %>%
+summarise(name="Year", n=n(),Mean=round(mean(year),digits=1), St.Dev=round(sd(year),digits=1),
+Min=min(year), Q1 = quantile(year,0.25), Median=median(year),
+Q3 = quantile(year,0.75), Max=max(year))-> table1
+
+#The table of length
+dat %>%
+summarise(name="Length", n=n(),Mean=round(mean(length),digits=1), St.Dev=round(sd(length),digits=1),
+Min=min(length), Q1 = quantile(length,0.25), Median=median(length),
+Q3 = quantile(length,0.75), Max=max(length))-> table2
+
+#The table of budget
+dat %>%
+summarise(name="Budget", n=n(),Mean=round(mean(budget),digits=1), St.Dev=round(sd(budget),digits=1),
+Min=min(budget), Q1 = quantile(budget,0.25), Median=median(budget),
+Q3 = quantile(budget,0.75), Max=max(budget))-> table3
+
+#The table of votes
+dat %>%
+summarise(name="Votes", n=n(),Mean=round(mean(votes),digits=1), St.Dev=round(sd(votes),digits=1),
+Min=min(votes), Q1 = quantile(votes,0.25), Median=median(votes),
+Q3 = quantile(votes,0.75), Max=max(votes))-> table4
+
+#The table of rating
+dat %>%
+summarise(name="Rating", n=n(),Mean=round(mean(rating),digits=1), St.Dev=round(sd(rating),digits=1),
+Min=min(rating), Q1 = quantile(rating,0.25), Median=median(rating),
+Q3 = quantile(rating,0.75), Max=max(rating))-> table5
+
+#Combining the two tables
+dplyr::union_all(table1,table2) -> table
+dplyr::union_all(table,table3) -> table
+dplyr::union_all(table,table4) -> table
+dplyr::union_all(table,table5) -> table
+
+table%>%
+  kable(caption = '\\label{tab:summaries} Summary statistics',  align = c("c", "c", "c")) %>%
+kable_styling(latex_options = "hold_position")
+```
+
+```{r histogram1, echo = FALSE, eval = TRUE,fig.align = "center", fig.cap = "\\label{fig:histogramyear} Year histogram",out.heighth='75%',out.width='75%',fig.pos = 'H'}
+histogram1 <- ggplot(dat, aes(year,fill=genre))+geom_histogram()+
+  guides(fill = FALSE) +
+  theme_economist() +
+  scale_fill_gdocs()+
+  guides(fill=guide_legend())+ 
+  theme(plot.title = element_text(size = 10,hjust = 0.5, face = "bold"),
+        text = element_text(size = 10,face = "bold",hjust = 0.5),
+        axis.title.y = element_text(face = "bold",hjust = 0.5),
+        axis.text.x = element_text(size =10,face ="bold"))
+histogram1
+```
+
+```{r histogram2, echo = FALSE, eval = TRUE,fig.align = "center", fig.cap = "\\label{fig:histogramyLength} Length histogram",out.heighth='75%',out.width='75%',fig.pos = 'H'}
+histogram2 <- ggplot(dat, aes(log(length),fill=genre))+geom_histogram()+
+  guides(fill = FALSE) +
+  theme_economist() +
+  scale_fill_gdocs()+
+  guides(fill=guide_legend())+ 
+  theme(plot.title = element_text(size = 10,hjust = 0.5, face = "bold"),
+        text = element_text(size = 10,face = "bold",hjust = 0.5),
+        axis.title.y = element_text(face = "bold",hjust = 0.5),
+        axis.text.x = element_text(size =10,face ="bold"))
+histogram2
+```
+
+
+
